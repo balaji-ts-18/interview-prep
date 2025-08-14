@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import ConvexClerkProvider from "@/components/providers/CovexClerkProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
 
-    <ClerkProvider>
+    <ConvexClerkProvider>
 
     <html lang="en">
       <body
@@ -36,6 +37,6 @@ export default function RootLayout({
       </body>
     </html>
 
-    </ClerkProvider>
+    </ConvexClerkProvider>
   );
 }
