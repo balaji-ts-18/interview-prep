@@ -44,10 +44,6 @@ export const QUICK_ACTIONS = [
   },
 ] as const;
 
-export const CODING_QUESTIONS: CodeQuestion[] = [
-  // unchanged...
-];
-
 export const LANGUAGES = [
   { id: "javascript", name: "JavaScript", icon: "/javascript.png" },
   { id: "python", name: "Python", icon: "/python.png" },
@@ -70,5 +66,50 @@ export interface CodeQuestion {
   };
   constraints?: string[];
 }
+
+// FIX: Added one complete question object to the array.
+export const CODING_QUESTIONS: CodeQuestion[] = [
+  {
+    id: "two-sum",
+    title: "Two Sum",
+    description: "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
+    examples: [
+      {
+        input: "nums = [2, 7, 11, 15], target = 9",
+        output: "[0, 1]",
+        explanation: "Because nums[0] + nums[1] == 9, we return [0, 1].",
+      },
+      {
+        input: "nums = [3, 2, 4], target = 6",
+        output: "[1, 2]",
+      },
+    ],
+    starterCode: {
+      javascript: `/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    // Write your code here
+};`,
+      python: `class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        # Write your code here`,
+      java: `class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        // Write your code here
+    }
+}`,
+    },
+    constraints: [
+      "2 <= nums.length <= 10^4",
+      "-10^9 <= nums[i] <= 10^9",
+      "-10^9 <= target <= 10^9",
+      "Only one valid answer exists.",
+    ],
+  },
+  // You can add more questions here
+];
 
 export type QuickActionType = (typeof QUICK_ACTIONS)[number];

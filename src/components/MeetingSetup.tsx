@@ -48,7 +48,6 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
           </Card>
 
           {/* CARD CONTROLS */}
-
           <Card className="md:col-span-1 p-6">
             <div className="h-full flex flex-col">
               {/* MEETING DETAILS  */}
@@ -58,7 +57,7 @@ function MeetingSetup({ onSetupComplete }: { onSetupComplete: () => void }) {
               </div>
 
               <div className="flex-1 flex flex-col justify-between">
-                <div className="spacey-6 mt-8">
+                <div className="space-y-6 mt-8">
                   {/* CAM CONTROL */}
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">

@@ -1,5 +1,5 @@
-import { CODING_QUESTIONS, LANGUAGES } from "@/constants";
-import { useState } from "react";
+import { CODING_QUESTIONS, CodeQuestion, LANGUAGES } from "@/constants";
+import { useEffect, useState } from "react";
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./ui/resizable";
 import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
@@ -8,20 +8,43 @@ import { AlertCircleIcon, BookIcon, LightbulbIcon } from "lucide-react";
 import Editor from "@monaco-editor/react";
 
 function CodeEditor() {
-  const [selectedQuestion, setSelectedQuestion] = useState(CODING_QUESTIONS[0]);
+  // FIX: Allow selectedQuestion to be undefined and get the first question safely.
+  const [selectedQuestion, setSelectedQuestion] = useState<CodeQuestion | undefined>(
+    CODING_QUESTIONS[0]
+  );
   const [language, setLanguage] = useState<"javascript" | "python" | "java">(LANGUAGES[0].id);
-  const [code, setCode] = useState(selectedQuestion.starterCode[language]);
+
+  // FIX: Initialize code state safely and update it with an effect.
+  const [code, setCode] = useState("");
+
+  useEffect(() => {
+    if (selectedQuestion) {
+      setCode(selectedQuestion.starterCode[language]);
+    }
+  }, [selectedQuestion, language]);
 
   const handleQuestionChange = (questionId: string) => {
-    const question = CODING_QUESTIONS.find((q) => q.id === questionId)!;
+    // FIX: Safely find the question.
+    const question = CODING_QUESTIONS.find((q) => q.id === questionId);
     setSelectedQuestion(question);
-    setCode(question.starterCode[language]);
   };
 
   const handleLanguageChange = (newLanguage: "javascript" | "python" | "java") => {
     setLanguage(newLanguage);
-    setCode(selectedQuestion.starterCode[newLanguage]);
+    // FIX: Safely update code only if a question is selected.
+    if (selectedQuestion) {
+      setCode(selectedQuestion.starterCode[newLanguage]);
+    }
   };
+
+  // FIX: Add a check to handle the case where no questions are loaded.
+  if (!selectedQuestion) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <p className="text-muted-foreground">No coding questions available.</p>
+      </div>
+    );
+  }
 
   return (
     <ResizablePanelGroup direction="vertical" className="min-h-[calc-100vh-4rem-1px]">
