@@ -19,6 +19,10 @@ function EndCallButton() {
 
   if (!call || !interview) return null;
 
+  // DEBUGGING: Check the console to see if these IDs match
+  console.log("Current User ID:", localParticipant?.userId);
+  console.log("Meeting Owner ID:", call.state.createdBy?.id);
+
   const isMeetingOwner = localParticipant?.userId === call.state.createdBy?.id;
 
   if (!isMeetingOwner) return null;
@@ -42,7 +46,7 @@ function EndCallButton() {
 
   return (
     <Button variant={"destructive"} onClick={endCall}>
-      End Meeting
+      End Meeting mother lvde
     </Button>
   );
 }
